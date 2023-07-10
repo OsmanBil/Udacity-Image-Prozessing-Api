@@ -13,19 +13,19 @@ app.get('/', (req, res) => {
 
 app.get('/don', (req, res) => {
   const { filename, width, height } = req.query;
-  const inputPath = path.join(__dirname, 'images/input.jpg');
-  const outputPath = `${__dirname}/images/output.jpg`;
+  const inputPath = path.join(__dirname, `images/full/${filename}.jpg`);
+  const outputPath = path.join(__dirname, `images/thumb/${filename}.jpg`);
 
   sharp(inputPath)
-  .resize(Number(width), Number(height))
-  .toFile('src/images/output.jpg', (err, info) => {
-    if (err) {
-      console.error(err);
-    } else {
-      console.log(info);
-      res.sendFile(outputPath);
-    }
-  });
+    .resize(Number(width), Number(height))
+    .toFile(outputPath, (err, info) => {
+      if (err) {
+        console.error(err);
+      } else {
+        console.log(info);
+        res.sendFile(outputPath);
+      }
+    });
 });
 
 
