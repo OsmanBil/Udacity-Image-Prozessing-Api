@@ -7,7 +7,7 @@ npm install
 # Usage
 Its a Udacity learn Project
 
-The endpoint to use ist http://localhost:3000/api/images
+The endpoint to use is http://localhost:3000/api/images
 Then you have to write the filename, width and height
 
 Please use this format: http://localhost:3000/api/images?filename=fjord&width=300&height=300

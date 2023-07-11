@@ -15,7 +15,6 @@ describe('Test fileSharper', () => {
     const testWidth = 200;
     const testHeight = 200;
     const testThumbPath = path.resolve(__dirname, '../images/thumb/fjord_200px_200px.jpg');
-
     try {
       await transform(testFilePath, testWidth, testHeight, testThumbPath);
     } catch (error) {
@@ -23,12 +22,11 @@ describe('Test fileSharper', () => {
     }
   });
 
-
   it('should return 500 Internal Server Error for missing image', (done) => {
     supertest(app)
       .get('/api/images?filename=nonexistent&width=300&height=300')
       .expect(500)
-      .end((err, res) => {
+      .end((err: Error, res):void => {
         if (err) {
           done.fail(err);
         } else {

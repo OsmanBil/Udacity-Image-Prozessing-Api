@@ -12,8 +12,6 @@ export const transform = async (inputPath: string, width: number, height: number
 
 const fileSharper = async (req: express.Request, res: express.Response) => {
   const { filename, width, height } = req.query;
-
-
   const inputPath = path.join(__dirname, `../images/full/${filename}.jpg`);
   const outputPath = path.join(__dirname, `../images/thumb/${filename}_${width}px_${height}px.jpg`,
   );
