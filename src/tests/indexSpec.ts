@@ -1,7 +1,8 @@
 import supertest from 'supertest';
 import express from 'express';
 import app from '../index';
-import fileSharper from '../utilities/fileSharper';
+import fileSharper, { transform } from '../utilities/fileSharper';
+import path from 'path';
 
 const request = supertest(app);
 
@@ -9,12 +10,17 @@ describe('Test fileSharper', () => {
   const app = express();
   app.get('/api/images', fileSharper);
 
-  it('does not throw error on valid image processing', async () => {
-    const filename = 'valid';
-    const width = 200;
-    const height = 200;
-    const response = await request.get(`/api/images?filename=${filename}&width=${width}&height=${height}`);
-    expect(response.status).toBe(200);
+  it('does not throw an error on valid image processing', async () => {
+    const testFilePath = path.resolve(__dirname, '../images/full/fjord.jpg');
+    const testWidth = 200;
+    const testHeight = 200;
+    const testThumbPath = path.resolve(__dirname, '../images/thumb/fjord_200px_200px.jpg');
+
+    try {
+      await transform(testFilePath, testWidth, testHeight, testThumbPath);
+    } catch (error) {
+      fail('Expected transform not to throw an error, but it threw: ' + error);
+    }
   });
 
 

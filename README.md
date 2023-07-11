@@ -5,7 +5,13 @@ Udacity - Image Prozessing Api
 npm install
 
 # Usage
-its a Udacity learn Project
+Its a Udacity learn Project
+
+The endpoint to use ist http://localhost:3000/api/images
+Then you have to write the filename, width and height
+
+Please use this format: http://localhost:3000/api/images?filename=fjord&width=300&height=300
+
 
 # Tests
 This project includes automated tests to ensure the proper functioning of the endpoints. The tests are designed to verify specific behaviors and response codes.
