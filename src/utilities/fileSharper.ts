@@ -3,15 +3,24 @@ import path from 'path';
 import sharp from 'sharp';
 import cache from 'memory-cache';
 
+export const transform = async (inputPath: string, width: number, height: number, outputPath: string) => {
+  return sharp(inputPath)
+      .resize(width, height)
+      .toFile(outputPath);
+}
+
+
 const fileSharper = async (req: express.Request, res: express.Response) => {
   const { filename, width, height } = req.query;
+
+  
   const inputPath = path.join(__dirname, `../images/full/${filename}.jpg`);
   const outputPath = path.join(
     __dirname,
     `../images/thumb/${filename}_${width}px_${height}px.jpg`,
   );
 
-  if (filename === undefined || width === undefined || height === undefined) {
+  if (!filename || !width || !height || typeof filename !== 'string' || isNaN(Number(width)) || isNaN(Number(height)) || Number(width) <= 0 || Number(height) <= 0) {
     res
       .status(400)
       .send(
